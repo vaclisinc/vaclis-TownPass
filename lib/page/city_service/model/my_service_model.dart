@@ -117,7 +117,8 @@ extension MyServiceIdExt on MyServiceItemId {
           description: '整合最多',
           icon: Image.asset('assets/image/ParkFlow.png'),
           category: MyServiceCategory.cityLife,
-          destinationUrl: 'https://vaclis-taipei-town.web.app/',
+          // destinationUrl: 'https://vaclis-taipei-town.web.app/',
+          destinationUrl: 'http://localhost:5173/'
         ),
       MyServiceItemId.cityRadio => MyServiceItem(
           title: '台北電台',

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService extends GetxService {
@@ -8,7 +10,7 @@ class NotificationService extends GetxService {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
+        AndroidInitializationSettings('./assets/image/ParkFlow'); //@mipmap/ic_launcher
     const DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings();
 
@@ -30,7 +32,7 @@ class NotificationService extends GetxService {
   }) {
     const androidNotificationDetail = AndroidNotificationDetails(
       '0',
-      '服務通知',
+      '停車提示',
       importance: Importance.max,
       priority: Priority.high,
       showWhen: false,
@@ -48,4 +50,30 @@ class NotificationService extends GetxService {
       payload: payload,
     );
   }
+
+
+  Future<void> showScheduledNotification({required String title, required String body, required int duration}) async {
+    await flutterLocalNotificationsPlugin!.zonedSchedule(
+      0,
+      title,
+      body,
+      tz.TZDateTime.now(tz.local).add(Duration(seconds: duration)),
+      const NotificationDetails(
+        // Android details
+        android: AndroidNotificationDetails(
+          '0',
+          '停車提示',
+          importance: Importance.max,
+          priority: Priority.high,
+          showWhen: false,
+        ),
+        iOS: DarwinNotificationDetails(),
+      ),
+      // Type of time interpretation
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,//To show notification even when the app is closed
+    );
+  }
+  
 }

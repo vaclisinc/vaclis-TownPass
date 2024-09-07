@@ -1,7 +1,7 @@
 import 'dart:convert';
-
-import 'package:town_pass/util/web_message_handler/tp_web_message_handler.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:town_pass/util/web_message_handler/tp_web_message_handler.dart';
+
 
 abstract class TPWebMessageListener {
   static List<TPWebMessageHandler> get messageHandler => [
@@ -12,6 +12,7 @@ abstract class TPWebMessageListener {
         DeviceInfoMessageHandler(),
         OpenLinkMessageHandler(),
         TestMessageHandler(),
+        NotificationHandler(),
       ];
 
   static WebMessageListener webMessageListener() {
