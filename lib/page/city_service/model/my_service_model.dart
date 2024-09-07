@@ -28,6 +28,7 @@ enum MyServiceItemId {
   library,
   locationSearch,
   zoo,
+  parking,
   ;
 }
 
@@ -111,6 +112,13 @@ extension MyServiceIdExt on MyServiceItemId {
           category: MyServiceCategory.healthCare,
           destinationUrl: '',
         ),
+      MyServiceItemId.parking => MyServiceItem(
+          title: '停車',
+          description: '',
+          icon: Assets.svg.iconRegistration.svg(),
+          category: MyServiceCategory.cityLife,
+          destinationUrl: 'http://localhost:5173',
+        ),
       MyServiceItemId.cityRadio => MyServiceItem(
           title: '台北電台',
           description: '線上即時收聽-臺北廣播電台',
@@ -165,7 +173,8 @@ extension MyServiceIdExt on MyServiceItemId {
           description: '提供各區日常服務地圖查找',
           icon: Assets.svg.iconLocationSearch24.svg(),
           category: MyServiceCategory.explore,
-          destinationUrl: 'https://taipei-pass-service.vercel.app/surrounding-service/',
+          destinationUrl:
+              'https://taipei-pass-service.vercel.app/surrounding-service/',
         ),
       MyServiceItemId.zoo => MyServiceItem(
           title: '愛遊動物園',
