@@ -113,11 +113,11 @@ extension MyServiceIdExt on MyServiceItemId {
           destinationUrl: '',
         ),
       MyServiceItemId.parking => MyServiceItem(
-          title: '停車',
-          description: '',
-          icon: Assets.svg.iconRegistration.svg(),
+          title: 'ParkFlow找車位',
+          description: '整合最多',
+          icon: Image.asset('assets/image/ParkFlow.png'),
           category: MyServiceCategory.cityLife,
-          destinationUrl: 'http://localhost:5173',
+          destinationUrl: 'https://vaclis-taipei-town.web.app/',
         ),
       MyServiceItemId.cityRadio => MyServiceItem(
           title: '台北電台',
