@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:town_pass/service/account_service.dart';
 import 'package:town_pass/service/device_service.dart';
@@ -165,5 +166,22 @@ class OpenLinkMessageHandler extends TPWebMessageHandler {
       TPRoute.webView,
       arguments: message,
     );
+  }
+}
+
+class TestMessageHandler extends TPWebMessageHandler {
+  @override
+  String get name => 'test';
+
+  @override
+  handle({
+    required String? message,
+    required WebUri? sourceOrigin,
+    required bool isMainFrame,
+    required Function(WebMessage reply)? onReply,
+  }) async {
+    log('TestMessageHandler');
+    log(onReply == null ? 'null' : 'not null');
+    onReply?.call(replyWebMessage(data: 123));
   }
 }
