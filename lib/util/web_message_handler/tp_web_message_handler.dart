@@ -187,11 +187,11 @@ class TestMessageHandler extends TPWebMessageHandler {
   }
 }
 
-class NotificationHandler extends TPWebMessageHandler {
+class TimerSetHandler extends TPWebMessageHandler {
   final notificationService = Get.find<NotificationService>();
 
   @override
-  String get name => 'notification';
+  String get name => 'timer_set';
 
   @override
   handle({
@@ -203,30 +203,30 @@ class NotificationHandler extends TPWebMessageHandler {
     if (message != null) {
       log('I received: $message');
       // try {
-        final Map<String, dynamic> jsonData = json.decode(message);
-        final String notifyTime = jsonData['notifyTime'] ?? '';
-        final String type = jsonData['type'] ?? 'undefined';
-        final String place = jsonData['place'] ?? 'no_data';
-        final int duration = int.parse(jsonData['duration']) ;
-        // log('123');
-        // notificationService.showLocalNotification(
-        //   title: "台北通ParkFlow找車位提醒您：",
-        //   body: type == 'yellowLine'
-        //       ? "${notifyTime != 'no_time' ? "您的愛車即將在一分鐘達規定臨停時間" : "您的愛車即將在30分鐘後禁止停車"}，請您盡快移車，以免被開單檢舉謝謝您！"
-        //       : (place != 'no_data' ? "您停在${place}的愛車即將在" : "您愛車即將在"),
-        //   payload: 'notification_payload',
-        // );
-        // log('456');
+      final Map<String, dynamic> jsonData = json.decode(message);
+      final String notifyTime = jsonData['notifyTime'] ?? '';
+      final String type = jsonData['type'] ?? 'undefined';
+      final String place = jsonData['place'] ?? 'no_data';
+      final int duration = jsonData['duration'];
+      // log('123');
+      // notificationService.showLocalNotification(
+      //   title: "台北通ParkFlow找車位提醒您：",
+      //   body: type == 'yellowLine'
+      //       ? "${notifyTime != 'no_time' ? "您的愛車即將在一分鐘達規定臨停時間" : "您的愛車即將在30分鐘後禁止停車"}，請您盡快移車，以免被開單檢舉謝謝您！"
+      //       : (place != 'no_data' ? "您停在${place}的愛車即將在" : "您愛車即將在"),
+      //   payload: 'notification_payload',
+      // );
+      // log('456');
 
-        await notificationService.showScheduledNotification(
-          title: "台北通ParkFlow找車位提醒您：",
-          body: type == 'yellowLine'
-              ? "${notifyTime != 'no_time' ? "您的愛車即將在一分鐘達規定臨停時間" : "您的愛車即將在30分鐘後禁止停車"}，請您盡快移車，以免被開單檢舉謝謝您！"
-              : (place != 'no_data' ? "您停在${place}的愛車即將在" : "您愛車即將在"),
-          duration: duration,
-        );
+      await notificationService.showScheduledNotification(
+        title: "台北通ParkFlow找車位提醒您：",
+        body: type == 'yellowLine'
+            ? "${notifyTime != 'no_time' ? "您的愛車即將在一分鐘達規定臨停時間" : "您的愛車即將在30分鐘後禁止停車"}，請您盡快移車，以免被開單檢舉謝謝您！"
+            : (place != 'no_data' ? "您停在${place}的愛車即將在" : "您愛車即將在"),
+        duration: duration,
+      );
 
-        onReply?.call(replyWebMessage(data: '通知发送成功'));
+      onReply?.call(replyWebMessage(data: '通知发送成功'));
       // } catch (e) {
       //   log('解析JSON失败: $e');
       //   onReply?.call(replyWebMessage(data: '通知发送失败：无效的JSON格式'));
