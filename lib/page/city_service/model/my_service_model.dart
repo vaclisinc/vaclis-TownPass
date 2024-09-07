@@ -79,8 +79,8 @@ extension MyServiceIdExt on MyServiceItemId {
           destinationUrl: 'https://dashboard.gov.taipei/',
         ),
       MyServiceItemId.parkFlow => MyServiceItem(
-        title: '找車位',
-        description: 'Park smart, stay on time',
+        title: 'ParkFlow 找車位',
+        description: '整合全台北最完整的停車即時資訊，並提供個人化智能通知。',
         icon: Assets.svg.iconParkFlow.svg(),
         category: MyServiceCategory.cityService,
         destinationUrl: 'https://vaclis-taipei-town.web.app/',
@@ -128,7 +128,7 @@ extension MyServiceIdExt on MyServiceItemId {
           destinationUrl: '',
         ),
       MyServiceItemId.parking => MyServiceItem(
-          title: 'ParkFlow找車位',
+          title: '找車位 ParkFlow',
           description: '整合最多',
           icon: Image.asset('assets/image/ParkFlow.png'),
           category: MyServiceCategory.cityLife,

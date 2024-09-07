@@ -204,43 +204,23 @@ class TimerSetHandler extends TPWebMessageHandler {
       log('I received: $message');
       // try {
       final Map<String, dynamic> jsonData = json.decode(message);
-      final String notifyTime = jsonData['notifyTime'] ?? '';
       final String type = jsonData['type'] ?? 'undefined';
-      final String place = jsonData['place'] ?? 'no_data';
       final int duration = jsonData['duration'];
-      // log('123');
-      // notificationService.showLocalNotification(
-      //   title: "台北通ParkFlow找車位提醒您：",
-      //   body: type == 'yellowLine'
-      //       ? "${notifyTime != 'no_time' ? "您的愛車即將在一分鐘達規定臨停時間" : "您的愛車即將在30分鐘後禁止停車"}，請您盡快移車，以免被開單檢舉謝謝您！"
-      //       : (place != 'no_data' ? "您停在${place}的愛車即將在" : "您愛車即將在"),
-      //   payload: 'notification_payload',
-      // );
-      // log('456');
+      int? remainTime = jsonData['remainTime'] as int?;
+      final int remainMin = remainTime != null ? remainTime ~/ 60 : 0;
+      final int remainSec = remainTime != null ? remainTime % 60 : 0;
+      final String? place = jsonData['place'] as String?;
 
+// '{"status":"no_time","type":"yellowLine","place":"no_data", "duration":"10"}'
       await notificationService.showScheduledNotification(
-        title: "台北通ParkFlow找車位提醒您：",
+        title: "台北通微服務「ParkFlow找車位」提醒您：",
         body: type == 'yellowLine'
-            ? "${notifyTime != 'no_time' ? "您的愛車即將在一分鐘達規定臨停時間" : "您的愛車即將在30分鐘後禁止停車"}，請您盡快移車，以免被開單檢舉謝謝您！"
-            : (place != 'no_data' ? "您停在${place}的愛車即將在" : "您愛車即將在"),
+            ? "${remainTime != 1800 ? "您的愛車即將在一分鐘達規定臨停時間" : "您的愛車即將在30分鐘後禁止停車"}，請您盡快移車，以免被開單檢舉謝謝您！"
+            : "提醒您${place?.isNotEmpty == true ? '停在「$place」的' : ''}愛車即將在${remainMin}分${remainSec}秒後達到您所預估的離開時間，抓緊時間以免被加收費用！",
         duration: duration,
       );
 
-      onReply?.call(replyWebMessage(data: '通知发送成功'));
-      // } catch (e) {
-      //   log('解析JSON失败: $e');
-      //   onReply?.call(replyWebMessage(data: '通知发送失败：无效的JSON格式'));
-      // }
-      // notificationService.showLocalNotification(
-      //   title: 'new message!',
-      //   body: message,
-      //   payload: 'notification_payload',
-      // );
-
-      //   onReply?.call(replyWebMessage(data: '通知送成功了'));
-      // } else {
-      //   onReply?.call(replyWebMessage(data: '你發空字串過來我是要通知個毛'));
-      // }
+      // onReply?.call(replyWebMessage(data: '傳輸成功'));
     }
   }
 }
