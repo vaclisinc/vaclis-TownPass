@@ -10,7 +10,7 @@ class NotificationService extends GetxService {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('./assets/image/ParkFlow'); //@mipmap/ic_launcher
+        AndroidInitializationSettings('@mipmap/ic_launcher'); 
     const DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings();
 
