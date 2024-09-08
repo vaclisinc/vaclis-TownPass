@@ -1,18 +1,23 @@
-import 'package:town_pass/gen/assets.gen.dart';
-import 'package:town_pass/service/account_service.dart';
-import 'package:town_pass/service/device_service.dart';
-import 'package:town_pass/service/geo_locator_service.dart';
-import 'package:town_pass/service/package_service.dart';
-import 'package:town_pass/util/tp_colors.dart';
-import 'package:town_pass/util/tp_route.dart';
-import 'package:town_pass/service/shared_preferences_service.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:town_pass/util/tp_route.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:town_pass/gen/assets.gen.dart';
+import 'package:town_pass/util/tp_colors.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:town_pass/service/device_service.dart';
+import 'package:town_pass/service/account_service.dart';
+import 'package:town_pass/service/package_service.dart';
+import 'package:town_pass/service/geo_locator_service.dart';
+import 'package:town_pass/service/notification_service.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:get/get.dart';
+import 'package:town_pass/service/shared_preferences_service.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   // FlutterNativeSplash.preserve(
   //   widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),
   // );
@@ -32,8 +37,14 @@ Future<void> initServices() async {
   await Get.putAsync<AccountService>(() async => await AccountService().init());
   await Get.putAsync<DeviceService>(() async => await DeviceService().init());
   await Get.putAsync<PackageService>(() async => await PackageService().init());
-  await Get.putAsync<SharedPreferencesService>(() async => await SharedPreferencesService().init());
-  await Get.putAsync<GeoLocatorService>(() async => await GeoLocatorService().init());
+  await Get.putAsync<SharedPreferencesService>(
+      () async => await SharedPreferencesService().init());
+  await Get.putAsync<GeoLocatorService>(
+      () async => await GeoLocatorService().init());
+  await Get.putAsync<NotificationService>(
+      () async => await NotificationService().init());
+  tz.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('Asia/Shanghai'));
 }
 
 class MyApp extends StatelessWidget {
@@ -57,7 +68,8 @@ class MyApp extends StatelessWidget {
           actionsIconTheme: IconThemeData(size: 56),
         ),
         actionIconTheme: ActionIconThemeData(
-          backButtonIconBuilder: (_) => Assets.svg.iconLeftArrow.svg(width: 24, height: 24),
+          backButtonIconBuilder: (_) =>
+              Assets.svg.iconLeftArrow.svg(width: 24, height: 24),
         ),
       ),
       debugShowCheckedModeBanner: false,

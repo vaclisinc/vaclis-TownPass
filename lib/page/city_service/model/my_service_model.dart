@@ -14,6 +14,7 @@ enum MyServiceItemId {
   reservation,
   iVoting,
   dashboard,
+  parkFlow,
   survey,
   police,
   neighborhood,
@@ -28,6 +29,7 @@ enum MyServiceItemId {
   library,
   locationSearch,
   zoo,
+  parking,
   ;
 }
 
@@ -76,6 +78,20 @@ extension MyServiceIdExt on MyServiceItemId {
           category: MyServiceCategory.cityService,
           destinationUrl: 'https://dashboard.gov.taipei/',
         ),
+      MyServiceItemId.parkFlow => MyServiceItem(
+        title: 'ParkFlow 找車位',
+        description: '整合全台北最完整的停車即時資訊，並提供個人化智能通知。',
+        icon: Assets.svg.iconParkFlow.svg(),
+        category: MyServiceCategory.cityService,
+        destinationUrl: 'https://vaclis-taipei-town.web.app/',
+      ),
+      MyServiceItemId.parkFlow => MyServiceItem(
+        title: '找車位 dev',
+        description: 'Park smart, stay on time',
+        icon: Assets.svg.iconParkFlow.svg(),
+        category: MyServiceCategory.cityService,
+        destinationUrl: 'https://localhost:5173/',
+      ),
       MyServiceItemId.survey => MyServiceItem(
           title: '意見調查',
           description: '了解民眾與台北市互動體驗調查',
@@ -110,6 +126,14 @@ extension MyServiceIdExt on MyServiceItemId {
           icon: Assets.svg.iconRegistration.svg(),
           category: MyServiceCategory.healthCare,
           destinationUrl: '',
+        ),
+      MyServiceItemId.parking => MyServiceItem(
+          title: '找車位 ParkFlow',
+          description: '整合最多',
+          icon: Image.asset('assets/image/ParkFlow.png'),
+          category: MyServiceCategory.cityLife,
+          // destinationUrl: 'https://vaclis-taipei-town.web.app/',
+          destinationUrl: 'http://localhost:5173/'
         ),
       MyServiceItemId.cityRadio => MyServiceItem(
           title: '台北電台',
@@ -165,7 +189,8 @@ extension MyServiceIdExt on MyServiceItemId {
           description: '提供各區日常服務地圖查找',
           icon: Assets.svg.iconLocationSearch24.svg(),
           category: MyServiceCategory.explore,
-          destinationUrl: 'https://taipei-pass-service.vercel.app/surrounding-service/',
+          destinationUrl:
+              'https://taipei-pass-service.vercel.app/surrounding-service/',
         ),
       MyServiceItemId.zoo => MyServiceItem(
           title: '愛遊動物園',
