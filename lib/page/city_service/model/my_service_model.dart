@@ -90,7 +90,7 @@ extension MyServiceIdExt on MyServiceItemId {
         description: 'Park smart, stay on time',
         icon: Assets.svg.iconParkFlow.svg(),
         category: MyServiceCategory.cityService,
-        destinationUrl: 'https://localhost:5173/',
+        destinationUrl: 'http://localhost:5173/',
       ),
       MyServiceItemId.survey => MyServiceItem(
           title: '意見調查',
